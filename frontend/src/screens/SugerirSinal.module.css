@@ -1,0 +1,18 @@
+.formSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda a altura da tela */
+    padding: 20px;
+    background-color: #f9ad6a; /* Cor de fundo laranja */
+  }
+  
+  .formContent {
+    width: 100%;
+    max-width: 800px; /* Máxima largura do formulário */
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }

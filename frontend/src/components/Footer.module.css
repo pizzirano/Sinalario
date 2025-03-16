@@ -1,0 +1,11 @@
+.footer {
+    background-color: #f9ad6a; /* Cor igual ao Header */
+    padding: 20px 0; /* Espaçamento vertical */
+    width: 100%; /* Ocupa toda a largura */
+    text-align: center; /* Centralizar texto */
+    color: white; /* Texto branco */
+    font-size: 1.5rem; /* Aumenta o tamanho do texto */
+    margin-top: 40px; /* Espaço entre o formulário e o footer */
+    border-radius: 20px 20px 0 0; /* Arredonda o topo para ficar mais bonito */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil no topo */
+  }
