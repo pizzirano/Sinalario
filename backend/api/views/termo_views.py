@@ -6,4 +6,4 @@ from api.serializers import TermoSerializer
 class TermoViewSet(viewsets.ModelViewSet):
     queryset = Termo.objects.all()
     serializer_class = TermoSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]

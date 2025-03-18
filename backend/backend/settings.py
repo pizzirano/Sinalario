@@ -41,11 +41,12 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-   
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',  # Comente esta linha para desabilitar JWT
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',  # Permite acesso sem autenticação
+    ),
 }
-
 SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',

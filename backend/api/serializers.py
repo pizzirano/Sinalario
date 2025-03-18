@@ -25,9 +25,10 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = ['id', 'nome', 'dominio']
 
-#  Subcategoria
 class SubcategoriaSerializer(serializers.ModelSerializer):
-    categoria = CategoriaSerializer()  # Incluindo a categoria da subcategoria
+    categoria = serializers.SlugRelatedField(
+        queryset=Categoria.objects.all(), slug_field='nome'
+    )  # Usa o nome da categoria em vez do ID
 
     class Meta:
         model = Subcategoria
@@ -35,11 +36,30 @@ class SubcategoriaSerializer(serializers.ModelSerializer):
 
 # Vídeo
 class VideoSerializer(serializers.ModelSerializer):
-    termo = serializers.PrimaryKeyRelatedField(queryset=Termo.objects.all())  # Apenas ID
+    video = serializers.FileField(required=True)
+    termo = serializers.CharField(write_only=True)  # Recebe o nome do termo
+    descricao = serializers.CharField(write_only=True)  # Recebe a descrição do termo
+    dominio = serializers.IntegerField(write_only=True)  # Recebe o ID do domínio
 
     class Meta:
         model = Video
-        fields = ['id', 'titulo', 'video', 'tipo_video', 'termo']
+        fields = ['video', 'termo', 'descricao', 'dominio']
+
+    def create(self, validated_data):
+        termo_nome = validated_data.pop('termo')  # Pega o nome do termo
+        descricao = validated_data.pop('descricao')  # Pega a descrição
+        dominio_id = validated_data.pop('dominio')  # Pega o ID do domínio
+
+        # Verifica se o termo existe, se não cria
+        termo, created = Termo.objects.get_or_create(
+            nome=termo_nome,
+            descricao=descricao,  # Passa a descrição ao criar o termo
+            dominio_id=dominio_id  # Associa o domínio ao termo
+        )
+
+        # Cria o vídeo e associa ao termo
+        video = Video.objects.create(termo=termo, **validated_data)
+        return video
 
 #  Classificacao
 class ClassificacaoSerializer(serializers.ModelSerializer):
